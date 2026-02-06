@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="MiriyaEditor/MiriyaEditor.csproj" />
+  <Project Path="Miriya/Miriya.vcxproj" Id="8928cf9d-6c09-4c63-a902-5b194eb7538f" />
+</Solution>
