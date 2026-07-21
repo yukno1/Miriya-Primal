@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
@@ -26,6 +27,21 @@ namespace MiriyaEditor.GameProject
 
         [DataMember]
         public Project Project { get; private set; }
+
+        private bool _isActive;
+        [DataMember]
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                if (_isActive != value)
+                {
+                    _isActive = value;
+                    OnPropertyChanged(nameof(IsActive));
+                }
+            }
+        }
 
         // TODO: list of game entities
 

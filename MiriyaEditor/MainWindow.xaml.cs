@@ -1,4 +1,6 @@
 ﻿using MiriyaEditor.GameProject;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +23,7 @@ namespace MiriyaEditor
         {
             InitializeComponent();
             Loaded += OnMainWindowLoaded;
+            Closing += OnMainWindowClosing;
         }
 
         private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
@@ -29,16 +32,23 @@ namespace MiriyaEditor
             OpenProjectBrowserDialog();
         }
 
+        private void OnMainWindowClosing(object sender, CancelEventArgs e)
+        {
+            Closing -= OnMainWindowClosing;
+            Project.Current?.Unload();
+        }
+
         private void OpenProjectBrowserDialog()
         {
             var projectBrowser = new ProjectBrowserDialog();
-            if (projectBrowser.ShowDialog() == false)
+            if (projectBrowser.ShowDialog() == false || projectBrowser.DataContext == null)
             {
                 Application.Current.Shutdown();
             }
             else
             {
-                //TODO
+                Project.Current?.Unload();
+                DataContext = projectBrowser.DataContext;
             }
         }
     }
